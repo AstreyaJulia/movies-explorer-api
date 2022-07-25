@@ -134,9 +134,33 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+/** Выход, удаление cookie
+ * @param req
+ * @param res
+ * @param next
+ */
+const signOut = (req, res, next) => {
+  const { _id } = req.user;
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        return new NotFoundError(STATUS.USER_NOT_FOUND);
+      }
+      res.clearCookie('jwt');
+      return res.status(200).send({ message: 'Вы вышли' });
+    })
+    .catch((error) => {
+      if (error.statusCode === 401) {
+        throw new AuthError(STATUS.AUTH_FAIL);
+      }
+    })
+    .catch(next);
+};
+
 module.exports = {
   getUserInfo,
   createUser,
   updateProfile,
   login,
+  signOut,
 };

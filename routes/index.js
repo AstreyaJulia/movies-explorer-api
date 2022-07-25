@@ -3,7 +3,7 @@ const { auth } = require('../middlewares/auth');
 const { signinValidation } = require('../middlewares/validation');
 const NotFoundError = require('../errors/not-found-error');
 const { STATUS } = require('../utils/constants/status');
-const { login } = require('../controllers/users');
+const { login, signOut } = require('../controllers/users');
 
 const {
   createUser,
@@ -29,7 +29,7 @@ const {
 router.get('/users/me', auth, getUserInfo);
 router.post('/users/', auth, signupValidation, createUser);
 router.patch('/users/me', auth, updateProfileValidation, updateProfile);
-/* TODO роут /signout удаляющий куку app.post('/signout', auth, signOut); */
+router.get('/signout', auth, signOut);
 /** Movies */
 router.get('/movies/', auth, getMovies);
 router.post('/movies/', auth, createMovieValidation, createMovie);

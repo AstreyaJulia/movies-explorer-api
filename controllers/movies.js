@@ -10,9 +10,12 @@ const ForbiddenError = require('../errors/forbidden-error');
  * @param next
  * @returns {*|Promise<any>}
  */
-const getMovies = (req, res, next) => Movie.find({})
-  .then((movies) => res.send({ data: movies }))
-  .catch(next);
+const getMovies = (req, res, next) => {
+  const { _id } = req.user;
+  Movie.find({ owner: _id })
+    .then((movies) => res.send({ data: movies }))
+    .catch(next);
+};
 
 /** Создает фильм
  * @param req - запрос, /movies,
