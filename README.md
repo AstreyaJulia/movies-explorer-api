@@ -1,6 +1,8 @@
 # movies-explorer-api
 Бекенд для дипломного проекта Яндекс Практикум
 
+Адрес API: [http://api.julialatyshevadoploma.nomoredomains.xyz](http://api.julialatyshevadoploma.nomoredomains.xyz)
+
 [Критерии диплома веб-разработчика](https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html)
 
 Бэклог:
