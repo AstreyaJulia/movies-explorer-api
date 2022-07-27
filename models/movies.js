@@ -22,20 +22,14 @@ const movieSchema = new mongoose.Schema({
   movieId: {
     type: Number,
     required: true,
-    min: 1,
-    max: 99,
   },
   nameEN: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 200,
   },
   nameRU: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 200,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -66,32 +60,24 @@ const movieSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 2000,
   },
   year: {
     type: String,
     required: true,
-    minlength: 4,
-    maxlength: 4,
   },
   duration: {
     type: Number,
     required: true,
-    min: 1,
-    max: 300,
   },
   director: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 100,
   },
   country: {
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 100,
   },
 });
 

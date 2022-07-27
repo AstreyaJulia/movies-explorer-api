@@ -30,7 +30,6 @@ const userSchema = new Schema(
         validator(email) {
           return isEmail(email);
         },
-        message: '',
       },
       type: String,
       required: true,
@@ -39,6 +38,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      minlength: 2,
       select: false,
     },
   },

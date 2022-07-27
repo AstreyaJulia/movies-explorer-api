@@ -146,7 +146,12 @@ const signOut = (req, res, next) => {
       if (!user) {
         return new NotFoundError(STATUS.USER_NOT_FOUND);
       }
-      res.clearCookie('jwt');
+      res.clearCookie('jwt', {
+        maxAge: 3600000,
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+      });
       return res.status(200).send({ message: 'Вы вышли' });
     })
     .catch((error) => {
