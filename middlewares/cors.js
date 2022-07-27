@@ -2,7 +2,10 @@
  * @type {string[]}
  */
 const allowedUrl = [
-  /* TODO прописать домены с http и https */
+  'https://julialatyshevadoploma.nomoredomains.xyz',
+  'http://julialatyshevadoploma.nomoredomains.xyz',
+  'https://api.julialatyshevadoploma.nomoredomains.xyz',
+  'http://api.julialatyshevadoploma.nomoredomains.xyz',
   'localhost:3000',
   'http://localhost:3000',
 ];
