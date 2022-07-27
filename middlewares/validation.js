@@ -34,11 +34,11 @@ const signupValidation = celebrate({
     }),
 });
 
-/** Валидация cardId для операций с карточками */
+/** Валидация cardId для операций с фильмами */
 const idMovieValidation = celebrate({
   params: Joi.object()
     .keys({
-      cardId: Joi.string()
+      movieId: Joi.string()
         .hex()
         .length(24),
     }),
