@@ -2,6 +2,7 @@
 Бекенд для дипломного проекта Яндекс Практикум
 
 Адрес API: [http://api.julialatyshevadoploma.nomoredomains.xyz](http://api.julialatyshevadoploma.nomoredomains.xyz)
+Публичный IP сервера: [84.201.176.208](http://84.201.176.208)
 
 [Критерии диплома веб-разработчика](https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html)
 
