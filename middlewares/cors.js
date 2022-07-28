@@ -11,7 +11,6 @@ const allowedUrl = [
 ];
 
 /** Простые CORS-запросы */
-// eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
   /** Сохраняем origin (источник) запроса */
   const { origin } = req.headers;
@@ -40,8 +39,8 @@ module.exports = (req, res, next) => {
     /** разрешаем кросс-доменные запросы с этими заголовками */
     res.header('Access-Control-Allow-Headers', requestHeaders);
     /** завершаем обработку запроса и возвращаем результат клиенту */
-    return res.end();
+    res.end();
+    return;
   }
-
   next();
 };

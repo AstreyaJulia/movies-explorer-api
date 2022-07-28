@@ -23,7 +23,7 @@ const getMovies = (req, res, next) => {
  *     nameEN,
  *     nameRU,
  *     thumbnail,
- *     trailer,
+ *     trailerLink,
  *     image,
  *     description,
  *     year,
@@ -42,7 +42,7 @@ const createMovie = (req, res, next) => {
     nameEN,
     nameRU,
     thumbnail,
-    trailer,
+    trailerLink,
     image,
     description,
     year,
@@ -57,7 +57,7 @@ const createMovie = (req, res, next) => {
     nameEN,
     nameRU,
     thumbnail,
-    trailerLink: trailer,
+    trailerLink,
     image,
     description,
     year,
@@ -86,30 +86,22 @@ const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
 
   Movie.findById(movieId)
-    // eslint-disable-next-line
     .then((movie) => {
       if (!movie) throw new NotFoundError(STATUS.MOVIE_NOT_FOUND);
       if (String(movie.owner) === req.user._id) {
-        Movie.findByIdAndRemove(movieId)
-          .then(() => {
-            res.status(200)
-              .send({ message: 'Фильм удален' });
-          })
-          .catch((err) => {
-            if (err.name === 'CastError') {
-              throw new BadRequestError(STATUS.MOVIE_ID_INVALID);
-            }
-            throw err;
-          });
-      } else {
-        throw new ForbiddenError(STATUS.DEL_MOVIE_FORBIDDEN);
+        return Movie.findByIdAndRemove(movieId);
       }
+      throw new ForbiddenError(STATUS.DEL_MOVIE_FORBIDDEN);
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
+    .then(() => {
+      res.status(200)
+        .send({ message: 'Фильм удален' });
+    })
+    .catch((error) => {
+      if (error.name === 'CastError') {
         throw new BadRequestError(STATUS.MOVIE_ID_INVALID);
       }
-      throw err;
+      throw error;
     })
     .catch(next);
 };

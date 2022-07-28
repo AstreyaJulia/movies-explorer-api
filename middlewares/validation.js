@@ -3,7 +3,8 @@ const {
   celebrate,
   Joi,
 } = require('celebrate');
-const { URL_REG_EXP } = require('../utils/constants/url-regexp');
+const validator = require('validator');
+const { STATUS } = require('../utils/constants/status');
 
 /** Валидация полей входа пользователя */
 const signinValidation = celebrate({
@@ -23,11 +24,12 @@ const signupValidation = celebrate({
   body: Joi.object()
     .keys({
       name: Joi.string()
-        .min(2)
-        .max(100),
-      email: Joi.string()
-        .min(3)
         .required()
+        .min(2)
+        .max(30),
+      email: Joi.string()
+        .required()
+        .min(3)
         .email(),
       password: Joi.string()
         .required(),
@@ -51,55 +53,60 @@ const updateProfileValidation = celebrate({
       name: Joi.string()
         .required()
         .min(2)
-        .max(100),
+        .max(30),
+      email: Joi.string()
+        .min(3)
+        .required()
+        .email(),
     }),
 });
 
-/** Валидация полей создания карточки */
+/** Валидация полей создания фильма */
 const createMovieValidation = celebrate({
   body: Joi.object()
     .keys({
       movieId: Joi.number()
         .required()
-        .min(1)
-        .max(99),
+        .min(1),
       nameEN: Joi.string()
         .required()
-        .min(2)
-        .max(200),
+        .min(2),
       nameRU: Joi.string()
         .required()
-        .min(2)
-        .max(200),
-      thumbnail: Joi.string()
-        .required()
-        .pattern(URL_REG_EXP),
-      trailer: Joi.string()
-        .required()
-        .pattern(URL_REG_EXP),
-      image: Joi.string()
-        .required()
-        .pattern(URL_REG_EXP),
+        .min(2),
+      thumbnail: Joi.string().required().custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return helpers.message(STATUS.CREATE_MOVIE_VALIDATION);
+      }),
+      trailerLink: Joi.string().required().custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return helpers.message(STATUS.CREATE_MOVIE_VALIDATION);
+      }),
+      image: Joi.string().required().custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return helpers.message(STATUS.CREATE_MOVIE_VALIDATION);
+      }),
       description: Joi.string()
         .required()
-        .min(2)
-        .max(2000),
+        .min(2),
       year: Joi.string()
         .required()
-        .min(4)
-        .max(4),
+        .min(4),
       duration: Joi.number()
         .required()
-        .min(1)
-        .max(300),
+        .min(1),
       director: Joi.string()
         .required()
-        .min(2)
-        .max(100),
+        .min(2),
       country: Joi.string()
         .required()
-        .min(3)
-        .max(100),
+        .min(3),
     }),
 });
 

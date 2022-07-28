@@ -6,8 +6,13 @@ const AuthError = require('../errors/auth-error');
 const BadRequestError = require('../errors/bad-request-error');
 const NotFoundError = require('../errors/not-found-error');
 const EmailExistError = require('../errors/email-exist-error');
+const { DEVELOPMENT_ENV } = require('../utils/constants/development-env');
 
+/** Чтение env-переменных из .env-файла */
 require('dotenv').config();
+
+/** Тип окружения, секретный ключ для генерации токена из .env-файла */
+const { NODE_ENV, JWT_SECRET_KEY } = process.env;
 
 /** Получить информацию о пользователе
  * @param req - запрос, /users/me, метод GET
@@ -79,11 +84,13 @@ const createUser = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   const {
     name,
+    email,
   } = req.body;
   const { _id } = req.user;
 
   User.findByIdAndUpdate(_id, {
     name,
+    email,
   }, {
     new: true,
     runValidators: true,
@@ -93,6 +100,7 @@ const updateProfile = (req, res, next) => {
       return res.send({
         data: {
           name: user.name,
+          email: user.email,
         },
       });
     })
@@ -115,7 +123,13 @@ const login = (req, res, next) => {
   } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = sign({ _id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
+      const token = sign(
+        { _id: user._id },
+        NODE_ENV === DEVELOPMENT_ENV.ENV_TYPE
+          ? JWT_SECRET_KEY
+          : DEVELOPMENT_ENV.DEVELOPMENT_SECRET_KEY,
+        { expiresIn: '7d' },
+      );
       // cookie
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
