@@ -106,6 +106,7 @@ const updateProfile = (req, res, next) => {
     })
     .catch((error) => {
       if (error.name === 'ValidationError') throw new BadRequestError(STATUS.UPDATE_PROFILE_VALIDATION);
+      else if (error.code === 11000) next(new EmailExistError(STATUS.EMAIL_EXIST));
       throw error;
     })
     .catch(next);
