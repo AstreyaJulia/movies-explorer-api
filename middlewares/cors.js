@@ -21,6 +21,7 @@ module.exports = (req, res, next) => {
   if (allowedUrl.includes(origin)) {
     /** Устанавливаем заголовок, разрешающий браузеру запросы с этого источника */
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
   }
 
   /** Перезапрос */
@@ -38,6 +39,7 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     /** разрешаем кросс-доменные запросы с этими заголовками */
     res.header('Access-Control-Allow-Headers', requestHeaders);
+    res.header('Access-Control-Allow-Credentials', true);
     /** завершаем обработку запроса и возвращаем результат клиенту */
     res.end();
     return;
