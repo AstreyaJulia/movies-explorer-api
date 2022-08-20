@@ -8,6 +8,7 @@ const allowedUrl = [
   'http://api.julialatyshevadoploma.nomoredomains.xyz',
   'localhost:3000',
   'http://localhost:3000',
+  'https://localhost:3000',
 ];
 
 /** Простые CORS-запросы */
