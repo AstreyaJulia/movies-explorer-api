@@ -16,8 +16,6 @@ module.exports = (req, res, next) => {
   /** Сохраняем origin (источник) запроса */
   const { origin } = req.headers;
 
-  console.log(req.headers)
-
   res.header('Access-Control-Allow-Credentials', true);
 
   /** Если источник есть в разрешенных */
