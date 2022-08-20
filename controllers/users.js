@@ -31,6 +31,7 @@ const getUserInfo = (req, res, next) => {
         data: {
           name: user.name,
           email: user.email,
+          _id: _id
         },
       });
     })
