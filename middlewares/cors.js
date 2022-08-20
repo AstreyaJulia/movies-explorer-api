@@ -8,12 +8,15 @@ const allowedUrl = [
   'http://api.julialatyshevadoploma.nomoredomains.xyz',
   'localhost:3000',
   'http://localhost:3000',
+  'https://localhost:3000',
 ];
 
 /** Простые CORS-запросы */
 module.exports = (req, res, next) => {
   /** Сохраняем origin (источник) запроса */
   const { origin } = req.headers;
+
+  console.log(req.headers)
 
   res.header('Access-Control-Allow-Credentials', true);
 
